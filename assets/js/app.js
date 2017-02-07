@@ -16,8 +16,9 @@ angular.module('app', ['ngSanitize', 'ui.bootstrap', 'gumga.layout', 'gumga.secu
       }));
 
       $scope.config = {
-          securityURL : 'http://192.168.25.176:8080/darci-api',
-          user: true
+          appURL : 'http://192.168.25.176:8080/darci-api',
+          // user: true,
+          // perfil: true
       };
 
     })

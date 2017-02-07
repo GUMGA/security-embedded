@@ -1,5 +1,5 @@
 export default function UserService($http, $window){
-    const base = $window.securityEmbedded['securityURL'];
+    const base = $window.securityEmbedded['appURL'];
 
     const service = {
       _url: base + '/api/user'

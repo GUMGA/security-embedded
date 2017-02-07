@@ -3,7 +3,7 @@ let TEMPLATE = `
     <div class="col-xs-12">
 
       <uib-tabset active="activePill">
-        <uib-tab ng-repeat="tab in tabs track by $index" index="$index" heading="{{tab.label}}">
+        <uib-tab ng-repeat="tab in tabs track by $index" index="$index" heading="{{tab.label}}" ng-if="tab.visible">
           <div bind-html-compile="tab.template"></div>
         </uib-tab>
       </uib-tabset>
@@ -30,7 +30,7 @@ const securityEmbedded = ($sce, $window) => {
                        "acesse http://www.github.com/gumga/security-embedded para mais detalhes.";
               }
 
-              $window.securityEmbedded['securityURL'] = ctrl.configuration.securityURL;
+              $window.securityEmbedded['appURL'] = ctrl.configuration.appURL;
 
               $window.securityEmbedded['getToken'] = () => {
                   if(ctrl.configuration.tokenEternal){
