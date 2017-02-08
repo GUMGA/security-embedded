@@ -68,7 +68,25 @@ let TEMPLATE = `
 
                     </span>
                 </a>
-                <span class="text-muted">{{org.name}}</span>
+                <span class="text-muted" ng-click="editOrg(org)">{{org.name}}</span>
+
+                <button type="button" class="pull-right "
+                        style="padding: 2px 6px;background: transparent;border: none;margin-top: 3px;outline: none;height: 42px;width: 40px;"
+                        ng-disabled="!removable(obj) && obj.id" data-nodrag
+                        ng-click="newOrg(this.$modelValue);">
+                        <span class="qs" style="position:absolute;">
+                            <span class="popover above">Adicionar organização</span>
+                        </span>
+                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
+                          xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                      	  viewBox="0 0 512 512"
+                         style="enable-background:new 0 0 80.13 80.13;" xml:space="preserve">
+                          <g>
+                          <path d="M0,512h256V0H0V512z M160,64h64v64h-64V64z M160,192h64v64h-64V192z M160,320h64v64h-64V320z M32,64h64v64H32V64z M32,192
+  h64v64H32V192z M32,320h64v64H32V320z M288,160h224v32H288V160z M288,512h64V384h96v128h64V224H288V512z" style="fill: #54545a;"/>
+                          </g>
+                        </svg>
+                </button>
 
                 <button type="button" class="pull-right "
                         style="padding: 2px 6px;background: transparent;border: none;margin-top: 3px;outline: none;height: 42px;width: 40px;"
@@ -97,6 +115,7 @@ let TEMPLATE = `
                           </g>
                         </svg>
                 </button>
+
                 <span class="pull-right fa fa-table fa-2x" data-nodrag
                       style="margin-top: -1px; cursor: default;"></span>
                 <div class="clearfix"></div>
@@ -132,6 +151,13 @@ let TEMPLATE = `
             </div>
 
             <div class="table-responsive">
+            <div class="col-xs-12 col-md-6 pull-left" style="padding: 0;">
+                <button class="gmd btn btn-primary" ng-click="addNewUser()">Novo usuário</button>
+            </div>
+              <div class="col-xs-12 col-md-6 pull-right">
+                  <input class="gmd form-control" placeholder="Pesquisar usuários" ng-model="filterUser"/>
+              </div>
+              <br/><br/>
               <table class="table table-stripped table-hover" ng-if="!usersMessage">
                   <tr>
                     <th>Nome</th>
@@ -139,7 +165,7 @@ let TEMPLATE = `
                     <th>Status</th>
                     <th>Acões</th>
                   </tr>
-                  <tr ng-repeat="user in users">
+                  <tr ng-repeat="user in users | filter:{name:filterUser}">
                     <td>{{user.name}}</td>
                     <td>{{user.login}}</td>
                     <td>{{user.status.value ? 'Ativo': 'Inativo'}}</td>
@@ -147,6 +173,9 @@ let TEMPLATE = `
                       <button class="gmd btn btn-primary" ng-click="editUser(user)">
                         Editar
                       </button>
+                      <!--<button class="gmd btn btn-danger" ng-click="removeUserInOrganization(user)">
+                        Remover
+                      </button> -->
                     </td>
                   </tr>
               </table>
@@ -155,14 +184,14 @@ let TEMPLATE = `
         </div>
     </div>
 
-    <div class="col-xs-12" ng-if="view == 'edit-user'">
+    <div class="col-xs-12" ng-if="view == 'edit-user' || view == 'new-user'">
         <div class="gmd panel panel-default">
           <div class="panel-body">
 
           <ol class="breadcrumb breadcrumb-security-embedded">
             <li><a ng-click="alterView('list-orgs')">Listagem de organizações</a></li>
             <li><a ng-click="alterView('list-users')">Listagem de usuários : {{variables.organizationSelected.name}}</a></li>
-            <li><a ng-click="alterView('edit-user')">Editando : {{variables.userSelected.name}}</a></li>
+            <li><a >{{view == 'edit-user' ? 'Editando : ' : 'Novo usuário'}}  {{variables.userSelected.name}}</a></li>
           </ol>
 
           <div ng-if="userMessage" align="center">
@@ -178,16 +207,63 @@ let TEMPLATE = `
 
               <div class="row">
                 <div class="col-xs-12 col-md-6">
-                    <form>
-                      <label class="text-muted">Nome</label>
-                      <input class="gmd form-control" ng-model="user.name"/>
-                    </form>
+                    <label class="text-muted">E-mail</label>
+                    <input class="gmd form-control" ng-model="user.login" ng-change="validateUser()" ng-model-options="{ debounce: 1000 }"/>
                 </div>
                 <div class="col-xs-12 col-md-6">
-                    <form>
-                      <label class="text-muted">E-mail</label>
-                      <input class="gmd form-control" ng-model="user.login"/>
-                    </form>
+                    <label class="text-muted">Nome</label>
+                    <input class="gmd form-control" ng-model="user.name"/>
+                </div>
+              </div>
+
+              <div class="row" ng-if="view == 'new-user'">
+                <br/>
+                <div class="col-xs-12 col-md-6">
+                    <label class="text-muted">Senha</label>
+                    <input class="gmd form-control" ng-model="user.password"/>
+                </div>
+                <div class="col-xs-12 col-md-6">
+                    <label class="text-muted">Confirme a senha</label>
+                    <input class="gmd form-control" ng-model="user.confirmPassword"/>
+                </div>
+              </div>
+
+              <div class="row" ng-if="perfis.length > 0">
+                <div class="col-xs-12 col-md-6">
+                  <br>
+                  <label class="text-muted">Perfis</label>
+                  <table class="gmd table table-bordered" style=" text-align: center;">
+                     <tr>
+                      <th>Descrição</th>
+                      <th></th>
+                     <tr>
+                     <tr ng-repeat="perfil in perfis">
+                      <td>{{perfil.description}}</td>
+                      <td>
+                        <button class="gmd btn btn-primary" ng-if="!perfil.exists" ng-disabled="perfil.disabled" ng-click="addUserInRole(perfil)">Adicionar</button>
+                        <button class="gmd btn btn-danger"  ng-if="perfil.exists" ng-disabled="perfil.disabled" ng-click="removeUserInRole(perfil)">Remover</button>
+                      </td>
+                     <tr>
+                  </table>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-xs-12">
+                  <hr>
+                  <label ng-if="userExists && userExists.id" class="text text-danger">
+                    O E-mail informado está sendo usado por outro usuário.
+                    <button class="gmd btn btn-primary" ng-click="editUser(userExists)">Ver usuário</button>
+                  </label>
+                  <label class="text text-muted" ng-if="!userIsInTheOrganization()">
+                    Esse usuário não está na organização {{variables.organizationSelected.name}}.
+                    <button class="gmd btn btn-primary" ng-disabled="addingUser" ng-click="addUserInOrganization(variables.userSelected)">Adicionar</button>
+                  </label>
+                  <button
+                    class="gmd btn btn-primary pull-right"
+                    ng-disabled="disabledSaveUser
+                    || (view == 'new-user' && (!user.password) || user.password != user.confirmPassword)"
+                    ng-click="saveUser(user)">Salvar</button>
                 </div>
               </div>
 
@@ -196,6 +272,40 @@ let TEMPLATE = `
 
           </div>
         </div>
+    </div>
+
+    <div class="col-xs-12" ng-if="view == 'edit-org' || view == 'new-org'">
+      <div class="gmd panel panel-default">
+        <div class="panel-body">
+
+          <ol class="breadcrumb breadcrumb-security-embedded">
+            <li><a ng-click="alterView('list-orgs')">Listagem de organizações</a></li>
+            <li><a ng-click="alterView('edit-org')">{{view == 'edit-org' ? 'Editando : ' : 'Nova organização'}}  {{organization.name}}</a></li>
+          </ol>
+
+          <div class="row">
+            <div class="col-xs-12 col-md-6">
+                <label class="text-muted">Nome</label>
+                <input class="gmd form-control" ng-model="organization.name"/>
+            </div>
+            <div class="col-xs-12 col-md-6">
+                <label class="text-muted">Código interno</label>
+                <input class="gmd form-control" ng-model="organization.internalCode"/>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xs-12">
+              <hr>
+              <button
+                class="gmd btn btn-primary pull-right"
+                ng-disabled="disabledSaveOrganization"
+                ng-click="saveOrganization(organization)">Salvar</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
     </div>
 
   </div>
@@ -210,7 +320,7 @@ const User = (SecurityEmbeddedUserService, $window) => {
       },
       link: (scope, elm, attrs) => {
           const ctrl = scope;
-
+          ctrl.filterUser = '';
           ctrl.view = 'list-orgs';
 
           ctrl.alterView = view => {
@@ -291,7 +401,70 @@ const User = (SecurityEmbeddedUserService, $window) => {
               });
           }
 
+          ctrl.getRolesByInstance = () => {
+              SecurityEmbeddedUserService.getRolesByInstance()
+                .then(resp=>{
+                  ctrl.perfis = [];
+                  resp
+                      .data
+                      .forEach(function (data) {
+                          var exists = data
+                              .users
+                              .filter(function (data) {
+                                  return data.id === ctrl.variables.userSelected.id
+                              }).length > 0;
+
+                          var role = {id: data.id, idUser: ctrl.variables.userSelected.id, description: data.name, exists: exists}
+                          ctrl.perfis.push(role)
+                        })
+                })
+          }
+
+          ctrl.removeUserInOrganization = user => {
+            console.log(user)
+            SecurityEmbeddedUserService.removeUserInOrganization(user.id, ctrl.variables.organizationSelected.hierarchyCode)
+              .then(resp=>{
+                console.log(resp)
+                  // ctrl.listUsers(ctrl.variables.organizationSelected);
+              })
+          }
+
+          ctrl.addUserInOrganization = user => {
+            ctrl.addingUser = true;
+            user.organizations.push(ctrl.variables.organizationSelected);
+            SecurityEmbeddedUserService.saveUser(user)
+              .then(resp=>{
+                ctrl.editUser(user);
+                ctrl.addingUser = false;
+              }, (error) => {
+                ctrl.addingUser = false;
+              })
+          }
+
+          ctrl.addUserInRole = (perfil) => {
+            perfil.disabled = true;
+              SecurityEmbeddedUserService.addUserInRole(perfil.idUser, perfil.id)
+                .then(resp=>{
+                  perfil.exists = true;
+                  ctrl.getRolesByInstance();
+                }, error=>{
+                  perfil.disabled = false;
+                })
+          }
+
+          ctrl.removeUserInRole = (perfil) => {
+            perfil.disabled = true;
+              SecurityEmbeddedUserService.removeUserInRole(perfil.idUser, perfil.id)
+                .then(resp=>{
+                  perfil.exists = true;
+                  ctrl.getRolesByInstance();
+                }, error=>{
+                  perfil.disabled = false;
+                })
+          }
+
           ctrl.listUsers = organization => {
+              ctrl.filterUser = '';
               delete ctrl.users;
               ctrl.alterView('list-users');
               ctrl.variables.organizationSelected = angular.copy(organization);
@@ -299,10 +472,100 @@ const User = (SecurityEmbeddedUserService, $window) => {
           }
 
           ctrl.editUser = user => {
+            ctrl.perfis = [];
+            delete ctrl.userExists;
+            ctrl.disabledSaveUser = false;
             delete ctrl.user;
             ctrl.alterView('edit-user');
             ctrl.variables.userSelected = angular.copy(user);
             ctrl.getUserByEmail(ctrl.variables.userSelected.login);
+            ctrl.getRolesByInstance();
+          }
+
+          ctrl.addNewUser = () => {
+            ctrl.perfis = [];
+            ctrl.disabledSaveUser = false;
+            ctrl.user = {};
+            ctrl.alterView('new-user');
+            ctrl.variables.userSelected = angular.copy({});
+          }
+
+          ctrl.saveUser = user => {
+            if(!user.id){
+              user.organizations = [ctrl.variables.organizationSelected];
+            }
+            SecurityEmbeddedUserService.saveUser(user)
+              .then(resp=>{
+                ctrl.filterUser = '';
+                delete ctrl.users;
+                ctrl.alterView('list-users');
+                ctrl.getUsersByOrganization(ctrl.variables.organizationSelected.id);
+              })
+          }
+
+          ctrl.validateUser = () => {
+              ctrl.disabledSaveUser = true;
+              delete ctrl.userExists;
+              SecurityEmbeddedUserService.getUserByEmail(ctrl.user.login)
+                .then(resp=>{
+                  if(resp.data && resp.data.id){
+                    ctrl.userExists = resp.data;
+                    return;
+                  }
+                  ctrl.disabledSaveUser = false;
+                }, error => {
+                   ctrl.disabledSaveUser = false;
+                })
+          }
+
+          ctrl.userIsInTheOrganization = () => {
+              var toReturn = true;
+
+              if(ctrl.variables.userSelected && ctrl.variables.userSelected.id
+                && ctrl.variables.organizationSelected && ctrl.variables.userSelected.organizations){
+                toReturn = ctrl.variables.userSelected.organizations.filter(org=>{
+                    return org.id == ctrl.variables.organizationSelected.id;
+                }).length > 0;
+              }
+
+              return toReturn;
+          }
+
+          ctrl.editOrg = organization => {
+            ctrl.variables.organizationSelected = undefined;
+            ctrl.organization = angular.copy(organization);
+            ctrl.alterView('edit-org');
+          }
+
+          ctrl.newOrg = (organization) => {
+            ctrl.variables.organizationSelected = organization;
+            ctrl.organization = angular.copy({});
+            ctrl.alterView('new-org');
+            delete ctrl.disabledSaveOrganization;
+          }
+
+          ctrl.saveOrganization = organization => {
+            organization.subOrganizations = organization.subOrganizations || [];
+            ctrl.disabledSaveOrganization = true;
+
+            var promisse;
+
+            if(ctrl.variables.organizationSelected){
+                organization.mainOrganization = {value: false};
+                ctrl.variables.organizationSelected.subOrganizations.push(organization);
+                promisse = SecurityEmbeddedUserService.saveOrganization(ctrl.variables.organizationSelected)
+            }else{
+                promisse = SecurityEmbeddedUserService.saveOrganization(organization)
+            }
+
+            promisse
+              .then(resp=>{
+                ctrl.alterView('list-orgs');
+                ctrl.disabledSaveOrganization = false;
+                ctrl.getOrganization();
+              }, error=>{
+                ctrl.disabledSaveOrganization = false;
+              })
           }
 
           ctrl.getOrganization();

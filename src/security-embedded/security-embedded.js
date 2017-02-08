@@ -80,9 +80,9 @@ const securityEmbedded = ($sce, $window) => {
               template: getTrustAsHtml('<security-embedded-user></security-embedded-user>')
             },
             {
-              label: 'Perfils',
+              label: 'Perfis',
               visible: isVisibleGeneric(ctrl.configuration.perfil),
-              template: '<h1>perfils</h1>'
+              template: '<h1>Perfis</h1>'
             }
           ];
 

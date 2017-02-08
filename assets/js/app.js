@@ -1,19 +1,17 @@
 angular.module('app', ['ngSanitize', 'ui.bootstrap', 'gumga.layout', 'gumga.securityEmbedded'])
     .controller('ctrl', function($scope){
 
-      sessionStorage.setItem('user', JSON.stringify({
-        "organization":"GUMGA",
+      sessionStorage.setItem('user', JSON.stringify(
+        {"organization":"GUMGA",
         "organizationLogo":null,
-        "timeOfCreation":"1486485375830",
-        "name":"GumgaAdmin",
+        "timeOfCreation":"1486553192120",
+        "name":"Mateus Miranda",
         "organizationHierarchyCode":"1.",
         "securityManager":false,
-        "login":"gumga@gumga.com.br",
+        "login":"info.mateusmiranda@gmail.com",
         "softwareHouse":false,
-        "timeOfExpiration":"1486487175830",
-        "picture":null,
-        "token":"20L1E1486495452765O1.I"
-      }));
+        "timeOfExpiration":"1486554992120",
+        "token":"4L1E1486574228356O1.I"}));
 
       $scope.config = {
           appURL : 'http://192.168.25.176:8080/darci-api',
