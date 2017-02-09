@@ -33,8 +33,8 @@ const securityEmbedded = ($sce, $window) => {
               $window.securityEmbedded['appURL'] = ctrl.configuration.appURL;
 
               $window.securityEmbedded['getToken'] = () => {
-                  if(ctrl.configuration.tokenEternal){
-                    return ctrl.configuration.tokenEternal;
+                  if(ctrl.configuration.eternalToken){
+                    return ctrl.configuration.eternalToken;
                   }
                   var user = JSON.parse(sessionStorage.getItem('user'));
                   if(!user || !user.token){

@@ -11,12 +11,13 @@ angular.module('app', ['ngSanitize', 'ui.bootstrap', 'gumga.layout', 'gumga.secu
         "login":"info.mateusmiranda@gmail.com",
         "softwareHouse":false,
         "timeOfExpiration":"1486554992120",
-        "token":"4L1E1486574228356O1.I"}));
+        "token":"4L1E1486642701902O1.I"}));
 
       $scope.config = {
           appURL : 'http://192.168.25.176:8080/darci-api',
+          // eternalToken: 'eterno',
           // user: true,
-          // perfil: true
+          // perfil: false
       };
 
     })

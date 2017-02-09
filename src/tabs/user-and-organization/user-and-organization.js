@@ -33,7 +33,7 @@ let TEMPLATE = `
         </div>
 
         <script type="text/ng-template" id="nodes_render.html">
-            <div ui-tree-handle class="tree-node tree-node-content" style="padding: 3px;">
+            <div ui-tree-handle class="tree-node tree-node-content" style="padding: 3px;position:relative;">
                 <a class="btn" data-nodrag ng-click="myToggle(this)"
                    style="background: transparent;border: none;padding: 12px;"
                    ng-init="initCollapsed(this, obj.subs == null)">
@@ -68,7 +68,7 @@ let TEMPLATE = `
 
                     </span>
                 </a>
-                <span class="text-muted" ng-click="editOrg(org)">{{org.name}}</span>
+                <span class="text-muted" ng-click="editOrg(org)" style="height: 100%;padding-top: 13px;position: absolute;">{{org.name}}</span>
 
                 <button type="button" class="pull-right "
                         style="padding: 2px 6px;background: transparent;border: none;margin-top: 3px;outline: none;height: 42px;width: 40px;"
@@ -173,9 +173,9 @@ let TEMPLATE = `
                       <button class="gmd btn btn-primary" ng-click="editUser(user)">
                         Editar
                       </button>
-                      <!--<button class="gmd btn btn-danger" ng-click="removeUserInOrganization(user)">
+                      <button class="gmd btn btn-danger" ng-click="removeUserInOrganization(user)">
                         Remover
-                      </button> -->
+                      </button>
                     </td>
                   </tr>
               </table>
@@ -386,6 +386,7 @@ const User = (SecurityEmbeddedUserService, $window) => {
               .then(resp=>{
                 if(resp.data){
                   ctrl.user = resp.data;
+                  ctrl.user.confirmPassword = angular.copy(ctrl.user.password);
                   delete ctrl.userMessage;
                 }else{
                   ctrl.userMessage = {

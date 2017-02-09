@@ -3,7 +3,7 @@ var UnminifiedWebpackPlugin = require('unminified-webpack-plugin');
 var path = require('path');
 
 module.exports = {
-  entry: './index.js',
+  entry: './src/index.js',
   output: {
     path: path.join(__dirname, '/dist/'),
     filename: 'security-embedded.min.js',
