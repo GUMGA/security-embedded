@@ -14,12 +14,12 @@ Segurança embutido nas aplicações feitas com framework Gumga.
 bower install gumga-security-embedded --save
 ```
 2 - Após a instalação adicione o arquivo de distribuição.
-```
+```html
 <script type="text/javascript" src="bower_components/gumga-security-embedded/dist/security-embedded.min.js"></script>
 ```
 3 - Adicione o modulo gumga.securityEmbedded na sua aplicação
 ```javascript
-angular.module('yourApp', ['gumga.securityEmbedde'])
+angular.module('yourApp', ['gumga.securityEmbedded'])
 ```
 ## Uso
 #Adicione no seu HTML o código abaixo
