@@ -6,7 +6,7 @@ Segurança embutido nas aplicações feitas com framework Gumga.
 | Lib        | Versão           |
 | ------------- |:-------------:|
 | [angular-sanitize](https://github.com/angular/bower-angular-sanitize/ "title" target="_blank")     | ^1.5.8 |
-| [angular-ui-bootstrap](https://angular-ui.github.io/bootstrap/ "title" target="_blank")  | centered      |
+| [angular-ui-bootstrap](https://angular-ui.github.io/bootstrap/ "title" target="_blank")  | ^2.5.0      |
 
 ## Instalação
 1 - Instale o gumga-security-embedded via bower
