@@ -365,7 +365,7 @@ const User = (SecurityEmbeddedUserService, $window) => {
             };
             SecurityEmbeddedUserService.getOrganization($window.securityEmbedded.getOrganizationHierarchyCode())
               .then(resp=>{
-                ctrl.organtization = [resp.data];
+                ctrl.organtization = [resp.data.data];
                 delete ctrl.organizationMessage;
               }, error=>{
                 ctrl.organizationMessage = {
@@ -420,11 +420,9 @@ const User = (SecurityEmbeddedUserService, $window) => {
           }
 
           ctrl.removeUserInOrganization = user => {
-            console.log(user)
             SecurityEmbeddedUserService.removeUserInOrganization(user.id, ctrl.variables.organizationSelected.hierarchyCode)
               .then(resp=>{
-                console.log(resp)
-                  // ctrl.listUsers(ctrl.variables.organizationSelected);
+                  ctrl.listUsers(ctrl.variables.organizationSelected);
               })
           }
 
