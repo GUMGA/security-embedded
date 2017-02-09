@@ -116,8 +116,6 @@ let TEMPLATE = `
                         </svg>
                 </button>
 
-                <span class="pull-right fa fa-table fa-2x" data-nodrag
-                      style="margin-top: -1px; cursor: default;"></span>
                 <div class="clearfix"></div>
             </div>
 
