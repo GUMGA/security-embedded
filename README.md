@@ -22,11 +22,11 @@ bower install gumga-security-embedded --save
 angular.module('yourApp', ['gumga.securityEmbedde'])
 ```
 ## Uso
-Adicione no seu HTML o código abaixo
+#Adicione no seu HTML o código abaixo
 ```html
 <security-embedded configuration="config"></security-embedded>
 ```
-Configuração
+#Configuração
 ```javascript
 $scope.config = {
     appURL : 'http://192.168.25.176:8080/darci-api',
@@ -35,7 +35,8 @@ $scope.config = {
     perfil: true //default true
 };
 ```
-Atributos da configuração
+#Atributos da configuração
+
 | Atributo        | Descrição           |
 | ------------- |:-------------:|
 | appURL:STRING   | Localização da sua aplicação, geralmente é usado o arquivo apiLocations |
