@@ -21,7 +21,6 @@ let TEMPLATE = `
                 <button class="gmd btn btn-primary" ng-click="addRole()">Novo perfil</button>
             </div>
             <div class="col-xs-12 col-sm-6 pull-right">
-                {{filterRole}}
                 <input class="gmd form-control" placeholder="Pesquisar perfis" ng-model="filterRole"/>
             </div>
           </div>
@@ -56,7 +55,7 @@ let TEMPLATE = `
 
           <ol class="gmd breadcrumb breadcrumb-security-embedded">
             <li><a ng-click="alterView('list-role')">Listagem de perfis</a></li>
-            <li><a ng-click="alterView('new-role')">{{view == 'edit-role' ? 'Editando : ' : 'Novo perfil'}} {{view == 'edit-role' ? role.name : ''}} </a></li>
+            <li><a >{{view == 'edit-role' ? 'Editando : ' : 'Novo perfil'}} {{view == 'edit-role' ? role.name : ''}} </a></li>
           </ol>
 
           <div class="row">
