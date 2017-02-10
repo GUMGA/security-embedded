@@ -1,7 +1,7 @@
 let TEMPLATE = `
 .angular-ui-tree-empty{border:1px dashed #bbb;min-height:100px;background-color:#e5e5e5;background-image:-webkit-linear-gradient(45deg,#fff 25%,transparent 0,transparent 75%,#fff 0,#fff),-webkit-linear-gradient(45deg,#fff 25%,transparent 0,transparent 75%,#fff 0,#fff);background-image:linear-gradient(45deg,#fff 25%,transparent 0,transparent 75%,#fff 0,#fff),linear-gradient(45deg,#fff 25%,transparent 0,transparent 75%,#fff 0,#fff);background-size:60px 60px;background-position:0 0,30px 30px;pointer-events:none}.angular-ui-tree-nodes{position:relative;margin:0;padding:0;list-style:none}.angular-ui-tree-nodes .angular-ui-tree-nodes{padding-left:20px}.angular-ui-tree-node,.angular-ui-tree-placeholder{position:relative;margin:0;padding:0;min-height:20px;line-height:20px}.angular-ui-tree-hidden{display:none}.angular-ui-tree-placeholder{margin:5px 0;padding:0;min-height:30px}.angular-ui-tree-handle{cursor:move;text-decoration:none;font-weight:700;box-sizing:border-box;min-height:20px;line-height:20px}.angular-ui-tree-drag{position:absolute;pointer-events:none;z-index:999;opacity:.8}
 
-.angular-ui-tree-handle {
+.security-embedded .angular-ui-tree-handle {
   background: none repeat scroll 0 0 #f3f3f4;
   border: 1px dashed #e7eaec;
   color: inherit;
@@ -9,12 +9,12 @@ let TEMPLATE = `
   font-weight: normal;
 }
 
-.angular-ui-tree-handle:hover {
+.security-embedded .angular-ui-tree-handle:hover {
   font-weight: bold;
   cursor: pointer;
 }
 
-.angular-ui-tree-placeholder {
+.security-embedded .angular-ui-tree-placeholder {
   background: #f0f9ff;
   border: 1px dashed #bed2db;
   -webkit-box-sizing: border-box;
@@ -22,12 +22,12 @@ let TEMPLATE = `
   box-sizing: border-box;
 }
 
-.group-title {
+.security-embedded .group-title {
   background-color: #687074 !important;
   color: #FFF !important;
 }
 
-.tree-node {
+.security-embedded .tree-node {
   background: none repeat scroll 0 0 #f3f3f4;
   border: 1px dashed #e7eaec;
   color: inherit;
@@ -35,26 +35,23 @@ let TEMPLATE = `
   border-radius: 3px;
 }
 
-.tree-node .btn {
+.security-embedded .tree-node .btn {
   min-width: 22px;
   margin-right: 4px;
 }
 
-.tree-node-content {
+.security-embedded .tree-node-content {
   margin: 5px 5px 5px 0;
 }
 
-.tree-handle {
+.security-embedded .tree-handle {
   background: none repeat scroll 0 0 #f3f3f4;
   border: 1px dashed #e7eaec;
   color: inherit;
   padding: 10px;
 }
 
-.angular-ui-tree-handle:hover {
-}
-
-.angular-ui-tree-placeholder {
+.security-embedded .angular-ui-tree-placeholder {
   background: #f0f9ff;
   border: 1px dashed #bed2db;
   -webkit-box-sizing: border-box;
@@ -62,16 +59,16 @@ let TEMPLATE = `
   box-sizing: border-box;
 }
 
-.dados-center {
+.security-embedded .dados-center {
   margin-left: 15%;
 }
 
-.ui-tree-button-arrow{
+.security-embedded .ui-tree-button-arrow{
   padding: 0;
   padding-top: 5px;
 }
 
-.qs {
+.security-embedded .qs {
     /*background-color: #02bdda;*/
     border-radius: 16px;
     cursor: pointer;
@@ -87,12 +84,12 @@ let TEMPLATE = `
     width: 30px;
 }
 
-.qs:hover{
+.security-embedded .qs:hover{
     color: #209F94;
     /*background: #209F94;*/
 }
 
-.qs .popover {
+.security-embedded .qs .popover {
     background-color: rgba(0, 0, 0, 0.85);
     border-radius: 5px;
     bottom: 42px;
@@ -110,7 +107,7 @@ let TEMPLATE = `
     z-index: 4;
     height: 33px;
 }
-.qs .popover:before {
+.security-embedded .qs .popover:before {
     border-top: 7px solid rgba(0, 0, 0, 0.85);
     border-right: 7px solid transparent;
     border-left: 7px solid transparent;
@@ -121,7 +118,7 @@ let TEMPLATE = `
     margin-left: -7px;
     position: absolute;
 }
-.qs:hover .popover {
+.security-embedded .qs:hover .popover {
     display: block;
     -webkit-animation: fade-in .3s linear 1, move-up .3s linear 1;
     -moz-animation: fade-in .3s linear 1, move-up .3s linear 1;
@@ -184,7 +181,7 @@ let TEMPLATE = `
 }
 
 
-.breadcrumb-security-embedded > li > a{
+.security-embedded .breadcrumb-security-embedded > li > a{
     cursor : pointer;
 }
 

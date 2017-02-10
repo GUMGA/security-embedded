@@ -1,5 +1,5 @@
 let TEMPLATE = `
-  <div class="row">
+  <div class="row security-embedded">
 
     <div class="col-xs-12" ng-if="view == 'list-orgs'">
       <div class="gmd panel panel-default">
@@ -149,14 +149,14 @@ let TEMPLATE = `
             </div>
 
             <div class="table-responsive">
-            <div class="col-xs-12 col-md-6 pull-left" style="padding: 0;">
-                <button class="gmd btn btn-primary" ng-click="addNewUser()">Novo usuário</button>
-            </div>
-              <div class="col-xs-12 col-md-6 pull-right">
+              <div class="col-xs-12 col-sm-6 pull-left" style="padding: 0;">
+                  <button class="gmd btn btn-primary" ng-click="addNewUser()">Novo usuário</button>
+              </div>
+              <div class="col-xs-12 col-sm-6 pull-right">
                   <input class="gmd form-control" placeholder="Pesquisar usuários" ng-model="filterUser"/>
               </div>
               <br/><br/>
-              <table class="table table-stripped table-hover" ng-if="!usersMessage">
+              <table class="gmd table table-stripped table-hover" ng-if="!usersMessage">
                   <tr>
                     <th>Nome</th>
                     <th>E-mail</th>
@@ -282,11 +282,11 @@ let TEMPLATE = `
           </ol>
 
           <div class="row">
-            <div class="col-xs-12 col-md-6">
+            <div class="col-xs-12 col-sm-6">
                 <label class="text-muted">Nome</label>
                 <input class="gmd form-control" ng-model="organization.name"/>
             </div>
-            <div class="col-xs-12 col-md-6">
+            <div class="col-xs-12 col-sm-6">
                 <label class="text-muted">Código interno</label>
                 <input class="gmd form-control" ng-model="organization.internalCode"/>
             </div>

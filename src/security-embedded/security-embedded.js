@@ -1,19 +1,19 @@
 let TEMPLATE = `
-  <div class="row" ng-if="initSuccess">
-    <div class="col-xs-12">
+  <div class="row">
 
+    <div class="col-xs-12" ng-if="initSuccess == 'success'">
       <uib-tabset active="activePill">
         <uib-tab ng-repeat="tab in tabs track by $index" index="$index" heading="{{tab.label}}" ng-if="tab.visible">
           <div bind-html-compile="tab.template"></div>
         </uib-tab>
       </uib-tabset>
-
     </div>
+
   </div>
 `;
 
 
-const securityEmbedded = ($sce, $window) => {
+const securityEmbedded = ($sce, $window, SecurityEmbeddedPerfilService) => {
     return {
       restrict : 'E',
       template: TEMPLATE,
@@ -22,12 +22,18 @@ const securityEmbedded = ($sce, $window) => {
       },
       link: (scope, elm, attrs) => {
           const ctrl = scope;
-          ctrl.initSuccess = false;
 
-          const checkConfiguration = () => {
+          const initConfiguration = () => {
+              ctrl.initSuccess = 'loading';
+
               if(!ctrl.configuration || typeof ctrl.configuration != 'object'){
-                 throw "Atenção, o SecurityEmbedded precisa do objeto de configuração "+
+                 throw "Atenção, o SecurityEmbedded precisa do objeto de configuração, "+
                        "acesse http://www.github.com/gumga/security-embedded para mais detalhes.";
+              }
+
+              if(!ctrl.configuration.appURL || typeof ctrl.configuration.appURL != 'string'){
+                  throw "Atenção, o SecurityEmbedded precisa que no objeto de configuração tenha o atributo appURL informando a rota da sua api, "+
+                      "acesse http://www.github.com/gumga/security-embedded para mais detalhes.";
               }
 
               $window.securityEmbedded['appURL'] = ctrl.configuration.appURL;
@@ -56,10 +62,17 @@ const securityEmbedded = ($sce, $window) => {
 
               $window.securityEmbedded.getOrganizationHierarchyCode();
 
-              ctrl.initSuccess = true;
+              SecurityEmbeddedPerfilService.getInstance()
+                .then(resp=>{
+                  $window.securityEmbedded['instance'] = resp.data;
+                  ctrl.initSuccess = 'success';
+                },error=>{
+                  throw "Não podemos inicar o segurity-embedded, aparentemente, o usuário não possui permissão na manipulação de dados do segurança.";
+                })
+
           }
 
-          checkConfiguration();
+          initConfiguration();
 
           const isVisibleGeneric = (value, page) => {
               let visible = true;
@@ -82,7 +95,7 @@ const securityEmbedded = ($sce, $window) => {
             {
               label: 'Perfis',
               visible: isVisibleGeneric(ctrl.configuration.perfil),
-              template: '<h1>Perfis</h1>'
+              template: getTrustAsHtml('<security-embedded-perfil></security-embedded-perfil>')
             }
           ];
 
@@ -91,6 +104,6 @@ const securityEmbedded = ($sce, $window) => {
     }
 };
 
-securityEmbedded.$inject = ['$sce', '$window'];
+securityEmbedded.$inject = ['$sce', '$window', 'SecurityEmbeddedPerfilService'];
 
 export default securityEmbedded;
