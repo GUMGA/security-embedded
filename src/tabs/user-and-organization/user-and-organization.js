@@ -204,25 +204,29 @@ let TEMPLATE = `
             <form>
 
               <div class="row">
-                <div class="col-xs-12 col-md-6">
+                <div class="col-xs-12 col-md-4">
                     <label class="text-muted">E-mail</label>
                     <input class="gmd form-control" ng-model="user.login" ng-change="validateUser()" ng-model-options="{ debounce: 1000 }"/>
                 </div>
-                <div class="col-xs-12 col-md-6">
+                <div class="col-xs-12 col-md-4">
                     <label class="text-muted">Nome</label>
                     <input class="gmd form-control" ng-model="user.name"/>
                 </div>
+                <div class="col-xs-12 col-md-4">
+                    <label class="text-muted">Código interno</label>
+                    <input class="gmd form-control" ng-model="user.internalCode"/>
+                </div>                
               </div>
 
               <div class="row" ng-if="view == 'new-user'">
                 <br/>
                 <div class="col-xs-12 col-md-6">
                     <label class="text-muted">Senha</label>
-                    <input class="gmd form-control" ng-model="user.password"/>
+                    <input type="password" class="gmd form-control" ng-model="user.password"/>
                 </div>
                 <div class="col-xs-12 col-md-6">
                     <label class="text-muted">Confirme a senha</label>
-                    <input class="gmd form-control" ng-model="user.confirmPassword"/>
+                    <input type="password" class="gmd form-control" ng-model="user.confirmPassword"/>
                 </div>
               </div>
 
