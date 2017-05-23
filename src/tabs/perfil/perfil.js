@@ -168,7 +168,6 @@ const Perfil = (SecurityEmbeddedPerfilService, SecurityEmbeddedUserService, $win
           ctrl.view = 'list-role';
           ctrl.users = [];
           ctrl.operationsSpecification = [];
-
           ctrl.alterView = view => {
             ctrl.view = view;
           }

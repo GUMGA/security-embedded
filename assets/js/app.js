@@ -14,7 +14,7 @@ angular.module('app', ['ngSanitize', 'ui.bootstrap', 'gumga.layout', 'gumga.secu
         "token":"eterno"}));
 
       $scope.config = {
-          appURL : 'http://localhost:8089/security-api',
+          appURL : 'http://192.168.25.250/security-api',
           eternalToken: 'eterno',
           user: true,
           perfil: true

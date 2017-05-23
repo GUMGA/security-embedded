@@ -446,9 +446,19 @@ const User = (SecurityEmbeddedUserService, $window) => {
                 perfil.disabled = true;
                 SecurityEmbeddedUserService.addUserInRole(perfil.idUser, perfil.id)
                     .then(resp=>{
+                        swal({
+                            title: '',
+                            type: 'success',
+                            text: 'Usuário adicionado ao perfil com sucesso'
+                        });
                         perfil.exists = true;
                         ctrl.getRolesByInstance();
                     }, error=>{
+                        swal({
+                            title: '',
+                            type: 'error',
+                            text: error.data.details
+                        });
                         perfil.disabled = false;
                     })
             }
@@ -457,9 +467,19 @@ const User = (SecurityEmbeddedUserService, $window) => {
                 perfil.disabled = true;
                 SecurityEmbeddedUserService.removeUserInRole(perfil.idUser, perfil.id)
                     .then(resp=>{
+                        swal({
+                            title: '',
+                            type: 'success',
+                            text: 'Usuário removido do perfil com sucesso'
+                        });
                         perfil.exists = true;
                         ctrl.getRolesByInstance();
                     }, error=>{
+                        swal({
+                            title: '',
+                            type: 'error',
+                            text: error.data.details
+                        });
                         perfil.disabled = false;
                     })
             }
