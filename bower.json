@@ -1,6 +1,6 @@
 {
   "name": "gumga-security-embedded",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Segurança Embutido da Gumga",
   "main": "index.js",
   "authors": [
@@ -15,5 +15,8 @@
     "bower_components",
     "test",
     "tests"
-  ]
+  ],
+  "dependencies": {
+    "sweetalert": "^1.1.3"
+  }
 }

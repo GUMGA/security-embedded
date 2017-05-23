@@ -330,11 +330,21 @@ const Perfil = (SecurityEmbeddedPerfilService, SecurityEmbeddedUserService, $win
               })
               .then(resp=>{
                 delete ctrl.role;
+                  swal({
+                      title: '',
+                      type: 'success',
+                      text: 'Perfil salvo com sucesso'
+                  });
                 ctrl.alterView('list-role');
                 ctrl.disabledSaveRole = true;
                 ctrl.getRolesByInstance();
               }, error => {
                 ctrl.disabledSaveRole = false;
+                  swal({
+                      title: '',
+                      type: 'error',
+                      text: error.data.details
+                  });
               });
           }
 

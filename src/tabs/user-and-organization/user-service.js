@@ -50,7 +50,7 @@ export default function UserService($http, $window){
     }
 
     service.saveOrganization = organization => {
-      return $http.post(base+'/api/security-embedded/save-organization', organization, {headers: getParamsToken()});
+        return $http.post(base+'/api/security-embedded/save-organization', organization, {headers: getParamsToken()});
     }
 
     return service;
