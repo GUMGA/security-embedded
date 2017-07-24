@@ -1,6 +1,6 @@
 {
   "name": "gumga-security-embedded",
-  "version": "1.2.4",
+  "version": "1.3.1",
   "description": "Segurança Embutido da Gumga",
   "main": "index.js",
   "authors": [

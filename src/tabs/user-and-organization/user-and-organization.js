@@ -16,12 +16,11 @@ let TEMPLATE = `
                       <br/>
                       <button ng-show="organizationMessage.status == 'error'" ng-click="getOrganization()" class="gmd btn btn-primary">Tentar novamente</button>
                       <label ng-show="organizationMessage.status == 'loading'" class="text text-muted">{{organizationMessage.message}}</label>
-                    </div>                    
-                    <div ui-tree="vm.treeOptions" data-max-depth="1" id="tree-root" class="angular-ui-tree">
-                    
-                        <ol ui-tree-nodes ng-model="organizations"
+                    </div>
+                    <div ui-tree data-max-depth="1" id="tree-root" class="angular-ui-tree">
+                        <ol ui-tree-nodes="" ng-model="organizations"
                             class="angular-ui-tree-nodes">
-                            <li ui-tree-node class="angular-ui-tree-node" data-nodrag ng-repeat="org in organizations"
+                            <li ui-tree-node="" class="angular-ui-tree-node" data-nodrag ng-repeat="org in organizations"
                                 ng-include="'nodes_render.html'">
                             </li>
                         </ol>
@@ -118,12 +117,14 @@ let TEMPLATE = `
                 <div class="clearfix"></div>
             </div>
 
-            <ol ui-tree-nodes ng-class="{hidden: collapsed}" ng-model="org.subOrganizations"
-                class="angular-ui-tree-nodes">
-                <li ui-tree-node class="angular-ui-tree-node" ng-repeat="org in org.subOrganizations"
-                    ng-include="'nodes_render.html'" collapsed="true">
-                </li>
-            </ol>
+            <div ui-tree data-max-depth="1" id="tree-root2" class="angular-ui-tree">
+              <ol ui-tree-nodes ng-class="{hidden: collapsed}" ng-model="org.subOrganizations"
+                  class="angular-ui-tree-nodes">
+                  <li ui-tree-node class="angular-ui-tree-node" data-nodrag ng-repeat="org in org.subOrganizations"
+                      ng-include="'nodes_render.html'" collapsed="true">
+                  </li>
+              </ol>
+            </div>
 
         </script>
 
@@ -214,7 +215,7 @@ let TEMPLATE = `
                 <div class="col-xs-12 col-md-4">
                     <label class="text-muted">Código interno</label>
                     <input class="gmd form-control" ng-model="user.internalCode"/>
-                </div>                
+                </div>
               </div>
 
               <div class="row" ng-show="view == 'new-user'">
