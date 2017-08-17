@@ -18,7 +18,7 @@ export default function UserService($http, $window){
     }
 
     service.getUserByEmail = email => {
-      return $http.get(base+'/api/security/user-by-email/'+email+'/', {headers: getParamsToken()})
+      return $http.get(base+'/api/security/user-by-email/'+email, {headers: getParamsToken()})
     }
 
     service.getRolesByInstance = () => {
