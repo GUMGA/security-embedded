@@ -1,6 +1,6 @@
 {
   "name": "gumga-security-embedded",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "",
   "main": "index.js",
   "devDependencies": {
@@ -21,7 +21,7 @@
   },
   "scripts": {
     "prod": "NODE_ENV=production webpack -p --config ./webpack.production.config.js",
-    "dev": "webpack-dev-server"
+    "dev": "webpack-dev-server --port 8090"
   },
   "author": "",
   "license": "ISC"

@@ -2,20 +2,25 @@ angular.module('app', ['ngSanitize', 'ui.bootstrap', 'gumga.layout', 'gumga.secu
     .controller('ctrl', function($scope){
 
       sessionStorage.setItem('user', JSON.stringify(
-        {"organization":"GUMGA",
-        "organizationLogo":null,
-        "timeOfCreation":"1486553192120",
-        "name":"Mateus Miranda",
-        "organizationHierarchyCode":"1.",
-        "securityManager":false,
-        "login":"info.mateusmiranda@gmail.com",
-        "softwareHouse":false,
-        "timeOfExpiration":"1486554992120",
-        "token":"eterno"}));
+        {
+    "organizationLogo": null,
+    "timeOfCreation": "1507120718599",
+    "login": "daniel@teste.com.br",
+    "softwareHouse": false,
+    "picture": null,
+    "token": "daniel",
+    "idUser": 27,
+    "organization": "TesteDaniel",
+    "name": "daniel",
+    "organizationHierarchyCode": "1.8.",
+    "instanceOrganizationHierarchyCode": "1.",
+    "securityManager": false,
+    "timeOfExpiration": "1507122518599"
+}));
 
       $scope.config = {
-          appURL : 'http://192.168.25.250/security-api',
-          eternalToken: 'eterno',
+          appURL : 'http://localhost:8081/dashboard-api',
+          eternalToken: 'daniel',
           user: true,
           perfil: true
       };
