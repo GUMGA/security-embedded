@@ -40,6 +40,6 @@ $scope.config = {
 | Atributo        | Descrição           |
 | ------------- |:-------------:|
 | appURL:STRING   | Localização da sua aplicação, geralmente é usado o arquivo apiLocations |
-| eternalToken:STRING  | Token eterno fixo, caso não seja preenchido, usaremos o token da sessionStorage |
+| eternalToken:STRING  | Token eterno fixo, caso não seja preenchido, usaremos o token da sessionStorage ou localStorage |
 | user:BOOLEAN  | Será usado para mostrar ou ocultar a aba de usuários e organizações |
 | perfil:BOOLEAN  | Será usado para mostrar ou ocultar a aba de perfil |
